@@ -77,6 +77,10 @@ public class StudentList extends AppCompatActivity {
             Intent intent = new Intent(StudentList.this, AddStudent.class);
             startActivity(intent);
         }
+        if (item.getItemId() == R.id.delete) {
+            Intent intent = new Intent(StudentList.this, DeleteStudent.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }
