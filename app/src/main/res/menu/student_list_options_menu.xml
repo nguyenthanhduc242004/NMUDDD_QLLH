@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Chọn"
+        android:id="@+id/option_select"/>
+    <item
+        android:title="Thêm sinh viên"
+        android:id="@+id/option_add"/>
+    <item
+        android:title="Xóa sinh viên"
+        android:id="@+id/option_delete"
+        android:visible="false"/>
+</menu>

@@ -10,12 +10,20 @@ import java.util.ArrayList;
 public class Class {
     private String id;
     private String name;
-    private ArrayList<Student> students;
+    private String faculty;
+//    private ArrayList<Student> students;
 
-    public Class(String id, String name, ArrayList<Student> students) {
+//    public Class(String id, String name, String faculty, ArrayList<Student> students) {
+//        this.id = id;
+//        this.name = name;
+//        this.faculty = faculty;
+//        this.students = students;
+//    }
+
+    public Class(String id, String name, String faculty) {
         this.id = id;
         this.name = name;
-        this.students = students;
+        this.faculty = faculty;
     }
 
     public Class(String id, String name) {
@@ -39,15 +47,23 @@ public class Class {
         this.name = name;
     }
 
-    public ArrayList<Student> getStudents() {
-        return students;
+//    public ArrayList<Student> getStudents() {
+//        return students;
+//    }
+//
+//    public void setStudents(ArrayList<Student> students) {
+//        this.students = students;
+//    }
+
+    public String getFaculty() {
+        return faculty;
     }
 
-    public void setStudents(ArrayList<Student> students) {
-        this.students = students;
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
     }
 
-    public int getNumberOfStudents() {
-        return students.size();
-    }
+//    public int getNumberOfStudents() {
+//        return students.size();
+//    }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +19,13 @@ public class StudentAdapter extends BaseAdapter {
     Context context;
     ArrayList<Student> students;
     LayoutInflater inflater;
+    boolean checkBoxVisibility;
+
     public StudentAdapter(@NonNull Context context, ArrayList<Student> students) {
         this.context = context;
         this.students = students;
         inflater = LayoutInflater.from(context);
+        this.checkBoxVisibility = false;
     }
 
     @Override
@@ -30,8 +34,8 @@ public class StudentAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Student getItem(int i) {
+        return students.get(i);
     }
 
     @Override
@@ -50,6 +54,35 @@ public class StudentAdapter extends BaseAdapter {
 //        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
 //        studentDOB.setText(dt1.format(students.get(i).getDob()));
         studentDOB.setText(students.get(i).getDob());
+        CheckBox checkBox = view.findViewById(R.id.cb_student);
+        if (checkBoxVisibility) {
+            checkBox.setVisibility(View.VISIBLE);
+            setStudentDobPaddingRight(studentDOB,4);
+        }
+        else {
+            checkBox.setVisibility(View.GONE);
+            setStudentDobPaddingRight(studentDOB,20);
+        }
         return view;
+    }
+
+    public boolean getCheckBoxVisibility() {
+        return checkBoxVisibility;
+    }
+
+    public void setCheckBoxVisibility(boolean checkBoxVisibility) {
+        this.checkBoxVisibility = checkBoxVisibility;
+    }
+
+    public void setStudentDobPaddingRight(TextView studentDOB, int paddingRight) {
+        studentDOB.setPadding(0, 0, paddingRight, 0);
+    }
+
+    public ArrayList<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
     }
 }

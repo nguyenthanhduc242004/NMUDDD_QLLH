@@ -10,20 +10,28 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".DeleteStudent"
-            android:exported="false" />
+            android:name=".UpdateClass"
+            android:exported="false"
+            android:label="Sửa Lớp Học"/>
+        <activity
+            android:name=".AddClass"
+            android:exported="false"
+            android:label="Thêm Lớp Học" />
         <activity
             android:name=".AddStudent"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Thêm Sinh Viên" />
         <activity
             android:name=".StudentList"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Danh Sách Sinh Viên" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="Danh Sách Lớp Học">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
