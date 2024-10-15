@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,6 +34,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String SQL_CREATE_TABLE_STUDENT_IN_CLASS = "CREATE TABLE " + TABLE_STUDENT_IN_CLASS + "(" + COLUMN_STUDENT_MSSV + ", " + COLUMN_CLASS_ID + ", " + "PRIMARY KEY(" + COLUMN_STUDENT_MSSV + ", " + COLUMN_CLASS_ID + "))";
     public static final String SQL_DELETE_TABLE_STUDENT_IN_CLASS = "DROP TABLE IF EXISTS " + TABLE_STUDENT_IN_CLASS;
 
+    private static final String TABLE_USER = "users";
+    public static final String COLUMN_USER_NAME = "username";
+    public static final String COLUMN_USER_PASSWORD = "password";
+    public static final String SQL_CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USER + "(" + COLUMN_USER_NAME + " TEXT PRIMARY KEY, " + COLUMN_USER_PASSWORD + " TEXT)";
+    public static final String SQL_DELETE_TABLE_USER = "DROP TABLE IF EXISTS " + TABLE_USER;
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -44,6 +51,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_CLASS);
         db.execSQL(SQL_CREATE_TABLE_STUDENT);
         db.execSQL(SQL_CREATE_TABLE_STUDENT_IN_CLASS);
+        db.execSQL(SQL_CREATE_TABLE_USER);
+        Log.i("onCreate", SQL_CREATE_TABLE_USER);
     }
 
     //    onUpgrade(): Nó được gọi khi database được nâng cấp, ví dụ như chỉnh sửa cấu trúc các bảng, thêm những thay đổi cho database,..
@@ -52,8 +61,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_TABLE_CLASS);
         db.execSQL(SQL_DELETE_TABLE_STUDENT);
         db.execSQL(SQL_DELETE_TABLE_STUDENT_IN_CLASS);
+        db.execSQL(SQL_DELETE_TABLE_USER);
         onCreate(db);
     }
+// USER CRUD: Begin
+    public void addUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_NAME, user.getUsername());
+        values.put(COLUMN_USER_PASSWORD, user.getPassword());
+
+        db.insert(TABLE_USER, null, values);
+        db.close();
+    }
+
+    public String getUserPassword(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] projection = {
+                COLUMN_USER_PASSWORD
+        };
+        Cursor cursor = db.query(TABLE_USER, projection, COLUMN_USER_NAME + "= ?", new String[]{username}, null, null, null);
+        if (cursor.moveToFirst()) {
+            String password = cursor.getString(0);
+            db.close();
+            Log.i("password", password);
+            return password;
+        }
+        return null;
+    }
+// USER CRUD: End
 
 
 
@@ -142,7 +178,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 //    STUDENT CRUD: Begin
-    public void addStudent(Student student, String id) {
+    public void addStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues studentValues = new ContentValues();
@@ -150,11 +186,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         studentValues.put(COLUMN_STUDENT_NAME, student.getName());
         studentValues.put(COLUMN_STUDENT_DOB, student.getDob());
         db.insert(TABLE_STUDENT, null, studentValues);
-
-        ContentValues studentInClassValues = new ContentValues();
-        studentInClassValues.put(COLUMN_STUDENT_MSSV, student.getMSSV());
-        studentInClassValues.put(COLUMN_CLASS_ID, id);
-        db.insert(TABLE_STUDENT_IN_CLASS, null, studentInClassValues);
 
         db.close();
     }
@@ -257,6 +288,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+
+
     public boolean updateStudentInClass(Student student, Class myClass) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -269,15 +302,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public int deleteStudentsInClass(ArrayList<Integer> mssvs, String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-//         Convert each integer to a string
-
-        int count = 0;
+        int rowAffected = 0;
         for (int i = 0; i < mssvs.size(); i++) {
-            count += db.delete(TABLE_STUDENT_IN_CLASS,COLUMN_CLASS_ID + " = ? AND " + COLUMN_STUDENT_MSSV + " = ?", new String[]{id, String.valueOf(mssvs.get(i))});
+            rowAffected += db.delete(TABLE_STUDENT_IN_CLASS, COLUMN_CLASS_ID + " ='" + id + "' AND " + COLUMN_STUDENT_MSSV + " =" + mssvs.get(i), null);
         }
         db.close();
-        return count;
+        return rowAffected;
     }
 
     public ArrayList<StudentInClass> loadAllStudentInClass() {

@@ -49,29 +49,31 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHandler = new DatabaseHandler(this);
 
+        databaseHandler.addUser(new User("duc", "123"));
+
+
 ////        Adding students to db
-//        databaseHandler.addStudent(new Student(22520271, "Nguyen Thanh Duc", "2004-04-02"));
-//        databaseHandler.addStudent(new Student(22528888, "Nguyen Tran Van Thien", "2004-01-01"));
-//        databaseHandler.addStudent(new Student(22522222, "Nguyen Tran Van Thien Lanh", "2004-02-02"));
-//        databaseHandler.addStudent(new Student(22520529, "Châu Ngọc Trầm Hương", "2004-03-03"));
+        databaseHandler.addStudent(new Student(22520271, "Nguyen Thanh Duc", "2004-04-02"));
+        databaseHandler.addStudent(new Student(22528888, "Nguyen Tran Van Thien", "2004-01-01"));
+        databaseHandler.addStudent(new Student(22522222, "Nguyen Tran Van Thien Lanh", "2004-02-02"));
+        databaseHandler.addStudent(new Student(22520529, "Châu Ngọc Trầm Hương", "2004-03-03"));
 //
 ////        Adding classes to db
-//        databaseHandler.addClass(new Class("SE114.P11", "Nhập môn ứng dụng di động", "CNPM"));
-//        databaseHandler.addClass(new Class("SE104.P11", "Nhập môn Công nghệ phần mềm", "CNPM"));
-////        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! null
-//        databaseHandler.addClass(new Class("IT008.P11", "Lập trình trực quan", null));
+        databaseHandler.addClass(new Class("SE114.P11", "Nhập môn ứng dụng di động", "CNPM"));
+        databaseHandler.addClass(new Class("SE104.P11", "Nhập môn Công nghệ phần mềm", "CNPM"));
+        databaseHandler.addClass(new Class("IT008.P11", "Lập trình trực quan", null));
         databaseHandler.addClass(new Class("IT008.P112", "Lập trình trực quan2", null));
 //
 ////        Adding student_in_class to db
-//        databaseHandler.addStudentInClass(new StudentInClass(22520271, "SE114.P11"));
-//        databaseHandler.addStudentInClass(new StudentInClass(22520271, "SE104.P11"));
-//        databaseHandler.addStudentInClass(new StudentInClass(22520271, "IT008.P11"));
-//        databaseHandler.addStudentInClass(new StudentInClass(22528888, "SE114.P11"));
-//        databaseHandler.addStudentInClass(new StudentInClass(22528888, "SE104.P11"));
-//        databaseHandler.addStudentInClass(new StudentInClass(22522222, "SE114.P11"));
-//        databaseHandler.addStudentInClass(new StudentInClass(22522222, "IT008.P11"));
-//        databaseHandler.addStudentInClass(new StudentInClass(22520529, "SE104.P11"));
-//        databaseHandler.addStudentInClass(new StudentInClass(22520529, "IT008.P11"));
+        databaseHandler.addStudentInClass(new StudentInClass(22520271, "SE114.P11"));
+        databaseHandler.addStudentInClass(new StudentInClass(22520271, "SE104.P11"));
+        databaseHandler.addStudentInClass(new StudentInClass(22520271, "IT008.P11"));
+        databaseHandler.addStudentInClass(new StudentInClass(22528888, "SE114.P11"));
+        databaseHandler.addStudentInClass(new StudentInClass(22528888, "SE104.P11"));
+        databaseHandler.addStudentInClass(new StudentInClass(22522222, "SE114.P11"));
+        databaseHandler.addStudentInClass(new StudentInClass(22522222, "IT008.P11"));
+        databaseHandler.addStudentInClass(new StudentInClass(22520529, "SE104.P11"));
+        databaseHandler.addStudentInClass(new StudentInClass(22520529, "IT008.P11"));
 
         lvClass = findViewById(R.id.studentListView);
         classes = databaseHandler.loadAllClasses();

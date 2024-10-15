@@ -51,7 +51,8 @@ public class AddStudent extends AppCompatActivity {
                     return;
                 }
                 DatabaseHandler databaseHandler = new DatabaseHandler(getApplicationContext());
-                databaseHandler.addStudent(new Student(mssv, name, dob), classId);
+                databaseHandler.addStudent(new Student(mssv, name, dob));
+                databaseHandler.addStudentInClass(new StudentInClass(mssv, classId));
                 Toast.makeText(getApplicationContext(), "Thêm sinh viên thành công", Toast.LENGTH_SHORT).show();
             }
         });
